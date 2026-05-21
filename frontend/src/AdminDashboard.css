@@ -1,0 +1,75 @@
+/* Background */
+.admin-bg {
+  background: #f1f3f6;
+}
+
+/* Sidebar */
+.sidebar {
+  background: linear-gradient(180deg, #1a1f36, #111827);
+}
+
+.sidebar .nav-link {
+  color: #cbd5e1;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar .nav-link:hover {
+  background: #2563eb;
+  color: #fff;
+}
+
+.sidebar .nav-link.active {
+  background: #2563eb !important;
+  color: #fff !important;
+}
+
+/* Content Card */
+.content-card {
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Form Card */
+.form-card {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* Button Style */
+.submit-btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    min-height: auto;
+  }
+}
+
+.sidebar {
+  transition: all 0.3s ease;
+}
+
+.sidebar.closed {
+  width: 0;
+  overflow: hidden;
+}
+
+.sidebar.open {
+  width: 250px; /* adjust as needed */
+}
+

@@ -1,0 +1,71 @@
+.about-page{
+  background:#f5f7fa;
+}
+
+
+.about-hero{
+  background:linear-gradient(135deg,#0e131a,#1c1f20);
+  color:#fff;
+  padding:80px 40px;
+}
+
+.hero-img{
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+
+.section-title{
+  font-weight:700;
+  color:#0d6efd;
+  margin-bottom:20px;
+}
+
+
+.about-img{
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+
+.mission-section{
+  background:#0f172a;
+  color:#e5e7eb;
+  padding:60px 20px;
+}
+
+.mission-box, .vision-box{
+  padding:30px;
+}
+
+.mission-box{
+  border-right:1px solid #334155;
+}
+
+
+.feature-card{
+  background:#ffffff;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.feature-card:hover{
+  transform:translateY(-8px);
+}
+
+
+.cta-section{
+  background:linear-gradient(135deg,#0d6efd,#6610f2);
+  color:#fff;
+  padding:60px 20px;
+}
+
+
+@media(max-width:768px){
+  .mission-box{
+    border-right:none;
+    border-bottom:1px solid #334155;
+  }
+}

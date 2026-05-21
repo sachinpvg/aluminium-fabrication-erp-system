@@ -1,0 +1,144 @@
+.bm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    backdrop-filter: blur(3px);
+}
+
+.bm-modal {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: bmSlideIn 0.3s ease;
+}
+
+@keyframes bmSlideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.bm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 24px 28px 16px;
+    border-bottom: 1px solid #eee;
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+.bm-title {
+    color: #fff;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+}
+
+.bm-subtitle {
+    color: #90caf9 !important;
+    font-size: 0.9rem;
+}
+
+.bm-close {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.bm-close:hover {
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.bm-body {
+    padding: 24px 28px;
+}
+
+/* Price breakdown */
+.bm-price-box {
+    background: #f0f4ff;
+    border: 1px solid #c5d8ff;
+    border-radius: 12px;
+    padding: 16px 20px;
+}
+
+.bm-price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: #555;
+    padding: 5px 0;
+    border-bottom: 1px solid #dde6ff;
+}
+
+.bm-price-row:last-of-type {
+    border-bottom: none;
+}
+
+.bm-price-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0d6efd;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 2px solid #0d6efd;
+}
+
+/* Footer buttons */
+.bm-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Success state */
+.bm-success {
+    text-align: center;
+    padding: 32px 16px;
+}
+
+.bm-success-icon {
+    font-size: 4rem;
+    color: #198754;
+    margin-bottom: 16px;
+    animation: popIn 0.4s ease;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    80% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

@@ -1,0 +1,86 @@
+.contact-hero {
+  background: #111;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+  animation: fadeInDown 1s ease-in-out;
+}
+
+.contact-hero-btn {
+  margin-top: 20px;
+  animation: pulse 2s infinite;
+}
+
+.contact-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  transition: 0.3s;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.contact-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.contact-service-card {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.contact-service-card:hover {
+  background: #ffc107;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.contact-img-zoom img {
+  transition: 0.4s;
+}
+.contact-img-zoom:hover img {
+  transform: scale(1.1);
+}
+
+.contact-form-card {
+  padding: 30px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  animation: fadeUp 1s ease forwards;
+}
+
+.contact-submit-btn {
+  margin-top: 10px;
+}
+
+.contact-cta {
+  background: #ffc107;
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 60px;
+}
+
+.contact-cta-btn {
+  animation: pulse 2s infinite;
+}
+
+.contact-fade-up {
+  animation: fadeUp 1s ease forwards;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255,193,7,0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(255,193,7,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,193,7,0); }
+}

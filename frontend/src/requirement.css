@@ -1,0 +1,32 @@
+.card {
+  border-radius: 10px;
+}
+
+.gps-btn {
+  border-radius: 20px;
+  padding: 6px 18px;
+}
+
+.add-btn {
+  position: absolute;
+  right: 25px;
+  margin-top: 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 20px;
+}
+.dep2
+{
+    background-image: url("https://content.jdmagicbox.com/v2/comp/delhi/w3/011pxx11.xx11.180922155604.k6w3/catalogue/northern-glass-solutions-shakarpur-delhi-toughened-glass-dealers-6fwis059xf.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 400px;
+}
+
+@media (max-width: 768px) {
+  .add-btn {
+    position: static;
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,27 @@
+.counter-section{
+  background:linear-gradient(135deg,#000000,#4cd1f6);
+  padding:70px 20px;
+  color:#fff;
+}
+
+.counter-box{
+  margin:20px 0;
+}
+
+.counter-number{
+  font-size:48px;
+  font-weight:700;
+}
+
+.counter-label{
+  font-size:18px;
+  margin-top:10px;
+  letter-spacing:1px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .counter-number{
+    font-size:36px;
+  }
+}
