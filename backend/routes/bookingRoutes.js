@@ -11,8 +11,8 @@ router.post('/', authMiddleware, async (req, res) => {
         const {
             username, phone, address,
             windowId, windowName,
-            width, height, fixingDate, notes,
-            totalPrice, windowPrice, labourCharge, rubberCharge, serviceCharge
+            width, height, sqft, fixingDate, notes,
+            pricePerSqft, totalPrice, windowPrice, labourCharge, rubberCharge, serviceCharge
         } = req.body;
 
         if (!windowId || !width || !height || !fixingDate) {
@@ -30,8 +30,10 @@ router.post('/', authMiddleware, async (req, res) => {
             windowName: windowName || '',
             width: parseFloat(width),
             height: parseFloat(height),
+            sqft: parseFloat(sqft) || 0,
             fixingDate: new Date(fixingDate),
             notes: notes || '',
+            pricePerSqft: parseFloat(pricePerSqft) || 0,
             windowPrice: parseFloat(windowPrice) || 0,
             labourCharge: parseFloat(labourCharge) || 0,
             rubberCharge: parseFloat(rubberCharge) || 0,
