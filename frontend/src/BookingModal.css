@@ -142,3 +142,144 @@
         opacity: 1;
     }
 }
+
+/* ✅ NEW STYLES FOR ENHANCED FEATURES */
+
+/* Total Sq.ft Display Box */
+.bm-sqft-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff8e1;
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 16px;
+    font-weight: 600;
+    color: #856404;
+}
+
+/* Price Display Card */
+.bm-price-display {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 16px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Additional Charges Box */
+.bm-charges-box {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.bm-charge-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #dee2e6;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.bm-charge-item:last-child {
+    border-bottom: none;
+}
+
+.bm-charge-total {
+    background: #e7f3ff;
+    padding: 12px;
+    margin: 8px -16px -16px -16px;
+    border-radius: 0 0 12px 12px;
+    font-size: 1rem;
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+/* Summary View Sections */
+.bm-summary-section {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.bm-summary-section h6 {
+    color: #0f3460;
+    border-bottom: 2px solid #0d6efd;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+}
+
+.bm-summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 0.95rem;
+}
+
+.bm-summary-row:not(:last-child) {
+    border-bottom: 1px solid #dee2e6;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+    .bm-modal {
+        max-width: 100%;
+        border-radius: 16px;
+        max-height: 95vh;
+    }
+
+    .bm-body {
+        padding: 18px 20px;
+    }
+
+    .bm-header {
+        padding: 18px 20px 12px;
+    }
+
+    .bm-footer {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .bm-footer button {
+        flex: 1;
+        min-width: 120px;
+    }
+
+    .bm-price-box {
+        padding: 12px 16px;
+        margin-top: 12px;
+    }
+
+    .bm-summary-row {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .bm-sqft-box {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .bm-charges-box {
+        padding: 12px;
+    }
+
+    .bm-charge-item {
+        font-size: 0.9rem;
+    }
+}
