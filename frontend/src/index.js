@@ -6,7 +6,7 @@ import Aboutas from './aboutas';
 import Login from './login';
 import Signuppage from './signuppage';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import QuotationForm from './quotationform';
 import Contactus from './contactus';
 import Requirement from './requirement';
@@ -18,11 +18,13 @@ import WindowsCatalog from './WindowsCatalog';
 import { AuthProvider } from './AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
       <AuthProvider>
             <Router>
                   <Routes>
+                        <Route path="/" element={<Navigate to="/home" />} />
                         <Route path='/home' element={<App />} />
                         <Route path='/aboutas' element={<Aboutas />} />
                         <Route path='/signuppage' element={<Signuppage />} />
