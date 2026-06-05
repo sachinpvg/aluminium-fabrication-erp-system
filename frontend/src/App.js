@@ -301,7 +301,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
         <div className='border border-dark'>
           <div class="window-grid">
           <div className=' windowbox  p-2'>
-            <img src='https://www.in-windowsltd.co.uk/wp-content/uploads/2021/06/home-pvcu-windows.jpg' className='img-fluid ms-3 mt-3'></img>
+            <img src='https://alphachen.com/wp-content/uploads/2026/03/UPVC-Sliding-Window-1024x1024.webp' className='img-fluid ms-3 mt-3'></img>
           </div>
           <div className='mt-5 p-3'>
             <h3 className='text-center'>Windows</h3>
