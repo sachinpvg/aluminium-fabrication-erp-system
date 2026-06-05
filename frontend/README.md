@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Aluminium Fabrication ERP System
+
+The Aluminium Fabrication ERP System is fully responsive and designed to work seamlessly across desktops, laptops, tablets, and mobile phones. The application provides an optimized user experience with adaptive layouts, ensuring smooth navigation, accessibility, and functionality on different screen sizes and resolutions.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
