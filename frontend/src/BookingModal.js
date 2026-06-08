@@ -17,17 +17,19 @@ export default function BookingModal({ win, onClose }) {
         notes: ''
     });
     
-    const [customPrice, setCustomPrice] = useState(win.price_per_sqft || 0);
     const [showSummary, setShowSummary] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
+    // ✅ Fixed pricing from window (admin controls price, not customer)
+    const pricePerSqft = win.price_per_sqft || 0;
+    
     // ✅ Dynamic Calculations
     const w = parseFloat(form.width) || 0;
     const h = parseFloat(form.height) || 0;
     const sqft = (w * h).toFixed(2);
-    const windowPrice = (customPrice || 0) * sqft;
+    const windowPrice = (pricePerSqft || 0) * sqft;
     const labour = win.labour_charge || 0;
     const rubber = win.rubber_charge || 0;
     const service = win.service_charge || 0;
@@ -35,10 +37,6 @@ export default function BookingModal({ win, onClose }) {
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-    };
-
-    const handlePriceChange = (e) => {
-        setCustomPrice(parseFloat(e.target.value) || 0);
     };
 
     // ✅ Input Validation
@@ -67,10 +65,6 @@ export default function BookingModal({ win, onClose }) {
             setErrorMsg('Please select a fixing date.');
             return false;
         }
-        if (customPrice <= 0) {
-            setErrorMsg('Price per sq.ft must be greater than 0.');
-            return false;
-        }
         return true;
     };
 
@@ -85,7 +79,7 @@ export default function BookingModal({ win, onClose }) {
 
     // ✅ WhatsApp Message Generation
     const generateWhatsAppMessage = () => {
-        const message = `Hi! 📦\n\nI would like to place an order:\n\n*Product:* ${win.name}\n*Dimensions:* ${w} ft × ${h} ft\n*Area:* ${sqft} sq.ft\n\n*Pricing Breakdown:*\n• Window (₹${customPrice}/sqft): ₹${windowPrice.toFixed(2)}\n• Labour Charge: ₹${labour.toFixed(2)}\n• Rubber Feeding: ₹${rubber.toFixed(2)}\n• Service Charge: ₹${service.toFixed(2)}\n\n*Total: ₹${totalPrice.toFixed(2)}*\n\n*Installation Date:* ${form.fixingDate}\n*Installation Address:* ${form.address}\n\n*Customer Details:*\nName: ${form.username}\nPhone: ${form.phone}\n\n${form.notes ? `Notes: ${form.notes}\n` : ''}Please confirm order availability. Thank you!`;
+        const message = `Hi! 📦\n\nI would like to place an order:\n\n*Product:* ${win.name}\n*Dimensions:* ${w} ft × ${h} ft\n*Area:* ${sqft} sq.ft\n\n*Pricing Breakdown:*\n• Window (₹${pricePerSqft}/sqft): ₹${windowPrice.toFixed(2)}\n• Labour Charge: ₹${labour.toFixed(2)}\n• Rubber Feeding: ₹${rubber.toFixed(2)}\n• Service Charge: ₹${service.toFixed(2)}\n\n*Total: ₹${totalPrice.toFixed(2)}*\n\n*Installation Date:* ${form.fixingDate}\n*Installation Address:* ${form.address}\n\n*Customer Details:*\nName: ${form.username}\nPhone: ${form.phone}\n\n${form.notes ? `Notes: ${form.notes}\n` : ''}Please confirm order availability. Thank you!`;
         return encodeURIComponent(message);
     };
 
@@ -110,12 +104,12 @@ export default function BookingModal({ win, onClose }) {
                 sqft: parseFloat(sqft),
                 fixingDate: form.fixingDate,
                 notes: form.notes,
-                pricePerSqft: customPrice,
-                windowPrice: windowPrice.toFixed(2),
+                pricePerSqft: pricePerSqft,
+                windowPrice: parseFloat((pricePerSqft * sqft).toFixed(2)),
                 labourCharge: labour,
                 rubberCharge: rubber,
                 serviceCharge: service,
-                totalPrice: totalPrice.toFixed(2)
+                totalPrice: parseFloat(totalPrice.toFixed(2))
             };
             const res = await fetch(apiUrl('/api/bookings'), {
                 method: 'POST',
@@ -197,7 +191,7 @@ export default function BookingModal({ win, onClose }) {
                                 </div>
                                 <div className="bm-summary-row">
                                     <span className="text-muted">Price per sq.ft:</span>
-                                    <span className="fw-semibold">₹{customPrice}</span>
+                                    <span className="fw-semibold">₹{pricePerSqft}</span>
                                 </div>
                                 <div className="bm-summary-row">
                                     <span className="text-muted">Installation Date:</span>
@@ -216,7 +210,7 @@ export default function BookingModal({ win, onClose }) {
                                     <i className="bi bi-calculator me-2"></i>Price Breakdown
                                 </h6>
                                 <div className="bm-price-row">
-                                    <span>Window Price ({sqft} sq.ft × ₹{customPrice}/sqft)</span>
+                                    <span>Window Price ({sqft} sq.ft × ₹{pricePerSqft}/sqft)</span>
                                     <span>₹{windowPrice.toFixed(2)}</span>
                                 </div>
                                 <div className="bm-price-row">
@@ -358,8 +352,8 @@ export default function BookingModal({ win, onClose }) {
                                             <div className="text-uppercase small text-secondary mb-1">Instant estimate</div>
                                             <div className="d-flex justify-content-between align-items-center">
                                                 <div>
-                                                    <div className="fw-semibold">{w > 0 && h > 0 ? `${sqft} sq.ft × ₹${customPrice.toFixed(2)} / sq.ft` : 'Enter dimensions to calculate cost'}</div>
-                                                    <div className="text-muted small">Price updates instantly as you change width, height, or price per sq.ft.</div>
+                                                    <div className="fw-semibold">{w > 0 && h > 0 ? `${sqft} sq.ft × ₹${pricePerSqft.toFixed(2)} / sq.ft` : 'Enter dimensions to calculate cost'}</div>
+                                                    <div className="text-muted small">Price updates instantly as you change width and height. (Price per sq.ft is set by admin)</div>
                                                 </div>
                                                 <div className="fw-bold fs-5 text-primary">₹{(w > 0 && h > 0 ? totalPrice.toFixed(2) : '0.00')}</div>
                                             </div>
@@ -367,29 +361,13 @@ export default function BookingModal({ win, onClose }) {
                                     </div>
                                 </div>
 
-                                {/* Price per Sq.ft (Editable) */}
-                                <div className="col-12 col-md-6">
-                                    <label className="form-label fw-semibold">Price per Sq.ft <span className="text-danger">*</span></label>
-                                    <div className="input-group">
-                                        <span className="input-group-text">₹</span>
-                                        <input
-                                            className="form-control"
-                                            type="number"
-                                            value={customPrice}
-                                            onChange={handlePriceChange}
-                                            min="1"
-                                            step="1"
-                                            required
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Window Price Display */}
-                                <div className="col-12 col-md-6">
+                                {/* Window Price Display (Read-Only) */}
+                                <div className="col-12">
                                     <label className="form-label fw-semibold">Window Price</label>
                                     <div className="bm-price-display">
                                         ₹{windowPrice.toFixed(2)}
                                     </div>
+                                    <small className="text-muted d-block mt-1">Price is calculated by admin based on window type and specifications</small>
                                 </div>
 
                                 {/* Additional Charges Display */}

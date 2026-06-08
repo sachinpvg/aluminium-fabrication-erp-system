@@ -7,6 +7,14 @@ export default function AdminBookings() {
     const [alert, setAlert] = useState({ type: '', msg: '' });
     const [viewBooking, setViewBooking] = useState(null);
     const [filter, setFilter] = useState('all');
+    const [editingPrice, setEditingPrice] = useState(null);
+    const [priceForm, setPriceForm] = useState({
+        pricePerSqft: 0,
+        labourCharge: 0,
+        rubberCharge: 0,
+        serviceCharge: 0
+    });
+    const [updatingPrice, setUpdatingPrice] = useState(false);
 
     // Assign worker modal state
     const [assignBooking, setAssignBooking] = useState(null);
@@ -32,6 +40,45 @@ export default function AdminBookings() {
     const showAlert = (type, msg) => {
         setAlert({ type, msg });
         setTimeout(() => setAlert({ type: '', msg: '' }), 3500);
+    };
+
+    const openEditPriceModal = (booking) => {
+        setEditingPrice(booking._id);
+        setPriceForm({
+            pricePerSqft: booking.pricePerSqft || 0,
+            labourCharge: booking.labourCharge || 0,
+            rubberCharge: booking.rubberCharge || 0,
+            serviceCharge: booking.serviceCharge || 0
+        });
+    };
+
+    const handlePriceChange = (e) => {
+        setPriceForm({
+            ...priceForm,
+            [e.target.name]: parseFloat(e.target.value) || 0
+        });
+    };
+
+    const handleUpdatePrice = async (bookingId) => {
+        if (!window.confirm('Update booking price? Customers will see the new total.')) return;
+        
+        setUpdatingPrice(true);
+        try {
+            const res = await fetch(apiUrl(`/api/bookings/${bookingId}/update-price`), {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(priceForm)
+            });
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error);
+            showAlert('success', 'Price updated successfully!');
+            setEditingPrice(null);
+            fetchBookings();
+        } catch (err) {
+            showAlert('danger', err.message || 'Failed to update price.');
+        } finally {
+            setUpdatingPrice(false);
+        }
     };
 
     const handleApprove = async (booking) => {
@@ -244,7 +291,7 @@ export default function AdminBookings() {
             {/* ── Detail Modal ── */}
             {viewBooking && (
                 <div className="modal show d-block" style={{ background: 'rgba(0,0,0,0.5)' }} onClick={() => setViewBooking(null)}>
-                    <div className="modal-dialog modal-dialog-centered" onClick={e => e.stopPropagation()}>
+                    <div className="modal-dialog modal-dialog-centered modal-lg" onClick={e => e.stopPropagation()}>
                         <div className="modal-content">
                             <div className="modal-header bg-dark text-white">
                                 <h6 className="modal-title">Booking Details</h6>
@@ -258,9 +305,8 @@ export default function AdminBookings() {
                                         <tr><th>Phone</th><td>{viewBooking.phone}</td></tr>
                                         <tr><th>Address</th><td>{viewBooking.address}</td></tr>
                                         <tr><th>Window</th><td>{viewBooking.windowName}</td></tr>
-                                        <tr><th>Size</th><td>{viewBooking.width} × {viewBooking.height} ft</td></tr>
+                                        <tr><th>Size</th><td>{viewBooking.width} × {viewBooking.height} ft ({viewBooking.sqft} sq.ft)</td></tr>
                                         <tr><th>Fixing Date</th><td>{viewBooking.fixingDate ? new Date(viewBooking.fixingDate).toLocaleDateString('en-IN') : '—'}</td></tr>
-                                        <tr><th>Total</th><td className="fw-bold text-primary">₹{parseFloat(viewBooking.totalPrice || 0).toFixed(2)}</td></tr>
                                         <tr><th>Status</th><td>{statusBadge(viewBooking.status)}</td></tr>
                                         <tr><th>Payment</th><td>{paymentBadge(viewBooking.paymentStatus)}</td></tr>
                                         {viewBooking.assigned_worker && (
@@ -275,6 +321,135 @@ export default function AdminBookings() {
                                         {viewBooking.notes && <tr><th>Notes</th><td>{viewBooking.notes}</td></tr>}
                                     </tbody>
                                 </table>
+
+                                <hr />
+
+                                {/* ── Admin Price Editing Section ── */}
+                                <div>
+                                    <h6 className="fw-bold mb-3">
+                                        <i className="bi bi-calculator me-2" />Price Breakdown (Admin Only)
+                                    </h6>
+
+                                    {editingPrice === viewBooking._id ? (
+                                        // Edit Mode
+                                        <div className="row g-3 p-3 bg-light rounded">
+                                            <div className="col-12">
+                                                <label className="form-label fw-semibold">Price per Sq.ft (₹)</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    name="pricePerSqft"
+                                                    value={priceForm.pricePerSqft}
+                                                    onChange={handlePriceChange}
+                                                    step="0.1"
+                                                    min="0"
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label className="form-label fw-semibold">Labour Charge (₹)</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    name="labourCharge"
+                                                    value={priceForm.labourCharge}
+                                                    onChange={handlePriceChange}
+                                                    step="0.1"
+                                                    min="0"
+                                                />
+                                            </div>
+                                            <div className="col-md-6">
+                                                <label className="form-label fw-semibold">Rubber Charge (₹)</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    name="rubberCharge"
+                                                    value={priceForm.rubberCharge}
+                                                    onChange={handlePriceChange}
+                                                    step="0.1"
+                                                    min="0"
+                                                />
+                                            </div>
+                                            <div className="col-12">
+                                                <label className="form-label fw-semibold">Service Charge (₹)</label>
+                                                <input
+                                                    type="number"
+                                                    className="form-control"
+                                                    name="serviceCharge"
+                                                    value={priceForm.serviceCharge}
+                                                    onChange={handlePriceChange}
+                                                    step="0.1"
+                                                    min="0"
+                                                />
+                                            </div>
+                                            <div className="col-12">
+                                                <div className="p-2 bg-white rounded border-2 border-primary">
+                                                    <div className="fw-bold text-primary">
+                                                        Calculated Total: ₹{(
+                                                            (priceForm.pricePerSqft * viewBooking.sqft) +
+                                                            priceForm.labourCharge +
+                                                            priceForm.rubberCharge +
+                                                            priceForm.serviceCharge
+                                                        ).toFixed(2)}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-12 d-flex gap-2">
+                                                <button
+                                                    className="btn btn-success btn-sm flex-grow-1"
+                                                    onClick={() => handleUpdatePrice(viewBooking._id)}
+                                                    disabled={updatingPrice}
+                                                >
+                                                    {updatingPrice ? 'Updating...' : 'Save Price'}
+                                                </button>
+                                                <button
+                                                    className="btn btn-secondary btn-sm flex-grow-1"
+                                                    onClick={() => setEditingPrice(null)}
+                                                    disabled={updatingPrice}
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        // View Mode
+                                        <div className="table-responsive">
+                                            <table className="table table-sm border">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Price per Sq.ft</th>
+                                                        <td className="fw-semibold">₹{(viewBooking.pricePerSqft || 0).toFixed(2)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Window Price ({viewBooking.sqft} sq.ft)</th>
+                                                        <td className="fw-semibold">₹{(viewBooking.windowPrice || 0).toFixed(2)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Labour Charge</th>
+                                                        <td className="fw-semibold">₹{(viewBooking.labourCharge || 0).toFixed(2)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Rubber Charge</th>
+                                                        <td className="fw-semibold">₹{(viewBooking.rubberCharge || 0).toFixed(2)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Service Charge</th>
+                                                        <td className="fw-semibold">₹{(viewBooking.serviceCharge || 0).toFixed(2)}</td>
+                                                    </tr>
+                                                    <tr className="table-dark">
+                                                        <th className="text-white">TOTAL PRICE</th>
+                                                        <td className="fw-bold text-warning">₹{(viewBooking.totalPrice || 0).toFixed(2)}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button
+                                                className="btn btn-sm btn-outline-primary mt-2"
+                                                onClick={() => openEditPriceModal(viewBooking)}
+                                            >
+                                                <i className="bi bi-pencil me-1" />Edit Prices
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             <div className="modal-footer">
                                 {viewBooking.status === 'pending' && (

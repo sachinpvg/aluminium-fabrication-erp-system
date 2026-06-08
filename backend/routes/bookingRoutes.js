@@ -158,4 +158,57 @@ router.put('/:id/assign-worker', async (req, res) => {
     }
 });
 
+// PUT /api/bookings/:id/update-price — admin only: update pricing breakdown
+router.put('/:id/update-price', async (req, res) => {
+    try {
+        const { pricePerSqft, labourCharge, rubberCharge, serviceCharge } = req.body;
+        
+        if (pricePerSqft === undefined || labourCharge === undefined || rubberCharge === undefined || serviceCharge === undefined) {
+            return res.status(400).json({ error: 'pricePerSqft, labourCharge, rubberCharge, and serviceCharge are required' });
+        }
+
+        const db = await getDB();
+        const booking = await db.collection('bookings').findOne({ _id: new ObjectId(req.params.id) });
+        if (!booking) return res.status(404).json({ error: 'Booking not found' });
+
+        // Recalculate windowPrice and totalPrice based on sqft
+        const sqft = booking.sqft || 0;
+        const newPricePerSqft = parseFloat(pricePerSqft) || 0;
+        const newWindowPrice = (newPricePerSqft * sqft);
+        const newLabourCharge = parseFloat(labourCharge) || 0;
+        const newRubberCharge = parseFloat(rubberCharge) || 0;
+        const newServiceCharge = parseFloat(serviceCharge) || 0;
+        const newTotalPrice = newWindowPrice + newLabourCharge + newRubberCharge + newServiceCharge;
+
+        const result = await db.collection('bookings').updateOne(
+            { _id: new ObjectId(req.params.id) },
+            {
+                $set: {
+                    pricePerSqft: newPricePerSqft,
+                    windowPrice: newWindowPrice,
+                    labourCharge: newLabourCharge,
+                    rubberCharge: newRubberCharge,
+                    serviceCharge: newServiceCharge,
+                    totalPrice: newTotalPrice,
+                    priceUpdatedAt: new Date()
+                }
+            }
+        );
+
+        if (result.matchedCount === 0) return res.status(404).json({ error: 'Booking not found' });
+        res.json({ 
+            message: 'Pricing updated successfully',
+            pricePerSqft: newPricePerSqft,
+            windowPrice: newWindowPrice.toFixed(2),
+            labourCharge: newLabourCharge.toFixed(2),
+            rubberCharge: newRubberCharge.toFixed(2),
+            serviceCharge: newServiceCharge.toFixed(2),
+            totalPrice: newTotalPrice.toFixed(2)
+        });
+    } catch (err) {
+        console.error('Error updating booking price:', err.message);
+        res.status(500).json({ error: 'Failed to update booking price' });
+    }
+});
+
 module.exports = router;
