@@ -351,6 +351,22 @@ export default function BookingModal({ win, onClose }) {
                                     </div>
                                 </div>
 
+                                {/* Instant Estimate Card */}
+                                <div className="col-12">
+                                    <div className="bm-estimate-card">
+                                        <div>
+                                            <div className="text-uppercase small text-secondary mb-1">Instant estimate</div>
+                                            <div className="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <div className="fw-semibold">{w > 0 && h > 0 ? `${sqft} sq.ft × ₹${customPrice.toFixed(2)} / sq.ft` : 'Enter dimensions to calculate cost'}</div>
+                                                    <div className="text-muted small">Price updates instantly as you change width, height, or price per sq.ft.</div>
+                                                </div>
+                                                <div className="fw-bold fs-5 text-primary">₹{(w > 0 && h > 0 ? totalPrice.toFixed(2) : '0.00')}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 {/* Price per Sq.ft (Editable) */}
                                 <div className="col-12 col-md-6">
                                     <label className="form-label fw-semibold">Price per Sq.ft <span className="text-danger">*</span></label>
