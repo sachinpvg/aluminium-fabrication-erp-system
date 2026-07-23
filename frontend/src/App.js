@@ -247,7 +247,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
       <div class="pb-3"><p class="text-dark ps-3">- “Preparing aluminium window quotations used to take hours, but now ERP automation helps us create accurate quotes quickly and track project progress easily.”</p></div>
       </div>
 
-      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRy7IAwx294BLHBe5kGYDe-xx-RHRxIdTZS1mvP7I_qJFdeS6RS8l5sQuI&s=10' className='img-fluid asdimg mt-5 ms-3'></img>
+      <img src='https://thumbs.dreamstime.com/b/vector-flat-man-avatar-no-face-brown-hair-beard-vector-flat-man-avatar-no-face-hairstyle-beard-300175364.jpg' className='img-fluid asdimg mt-5 ms-3'></img>
         </div>
         <div className='col-12 col-sm-4 col-lg-4 mb-4 mb-lg-0 col-xl-4 mt-5 pt-5'>
           <div  class="review1 ms-5">
