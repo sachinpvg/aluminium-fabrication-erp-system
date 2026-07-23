@@ -259,7 +259,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
       <div class="pb-3"><p class="text-dark ps-3">- After implementing the ERP system, our aluminium window orders are processed accurately and on time. The system connects sales, production, and inventory, helping us reduce errors and improve customer satisfaction.”</p></div>
       </div>
 
-      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLQqLCpvhzGNfa96pjoS9wzJK8sc-AvaJNhQ&s' className='img-fluid asdimg mt-5 ms-5 pt-3 ps-5'></img>
+      <img src='https://creative.artisantalent.com/hs-fs/hubfs/performance_reviews.gif?width=380&name=performance_reviews.gif' className='img-fluid asdimg mt-5 ms-5 pt-3 ps-5'></img>
 
           <div  class="review1 mt-5 pt-5 ms-5">
       <div class="mt-3 pt-3 ps-3"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgsWmvWJ3x1f8r04NlEOythfavRh3SiVmyVKiXHKMhrA&s" class="reviewimg "></img></div>
@@ -301,7 +301,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
         <div className='border border-dark'>
           <div class="window-grid">
           <div className=' windowbox  p-2'>
-            <img src='https://alphachen.com/wp-content/uploads/2026/03/UPVC-Sliding-Window-1024x1024.webp' className='img-fluid ms-3 mt-3'></img>
+            <img src='https://imgmediagumlet.lbb.in/media/2023/07/64b630a9782d062961c76b78_1689661609641.jpg' className='img-fluid ms-3 mt-3'></img>
           </div>
           <div className='mt-5 p-3'>
             <h3 className='text-center'>Windows</h3>
