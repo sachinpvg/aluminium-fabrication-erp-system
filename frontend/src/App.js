@@ -259,10 +259,10 @@ Our company focuses on precision measurement, quality materials, and advanced fa
       <div class="pb-3"><p class="text-dark ps-3">- After implementing the ERP system, our aluminium window orders are processed accurately and on time. The system connects sales, production, and inventory, helping us reduce errors and improve customer satisfaction.”</p></div>
       </div>
 
-      <img src='https://creative.artisantalent.com/hs-fs/hubfs/performance_reviews.gif?width=380&name=performance_reviews.gif' className='img-fluid asdimg mt-5 ms-5 pt-3 ps-5'></img>
+      <img src='https://cdn.dribbble.com/userupload/32584888/file/original-c5d6b3599aee19ce287f3e57c77a10cb.png' className='img-fluid asdimg mt-5 ms-5 pt-3 ps-5'></img>
 
           <div  class="review1 mt-5 pt-5 ms-5">
-      <div class="mt-3 pt-3 ps-3"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHAKXJoO29KoMFv-TNlOhW50juPvJ0dEyrjrmKLoXjdL1OEzP_MWlA--8&s=10" class="reviewimg "></img></div>
+      <div class="mt-3 pt-3 ps-3"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgsWmvWJ3x1f8r04NlEOythfavRh3SiVmyVKiXHKMhrA&s" class="reviewimg "></img></div>
       <div class="pt-2 ps-3">
         <h6 class="pt-5 text-dark fw-bold fs-5">leo dass</h6>
         <p class="text-dark ps-3">V E L A N K A N N I</p>
