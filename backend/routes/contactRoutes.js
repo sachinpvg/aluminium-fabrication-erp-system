@@ -1,6 +1,7 @@
 const express = require('express');
 const { ObjectId } = require('mongodb');
 const { getDB } = require('../db');
+const authMiddleware = require('../authMiddleware');
 
 const router = express.Router();
 
@@ -31,8 +32,8 @@ router.post('/', async (req, res) => {
     }
 });
 
-// GET /api/contact — list all contact messages
-router.get('/', async (req, res) => {
+// GET /api/contact — list all contact messages (admin)
+router.get('/', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const messages = await db.collection('contact_messages').find({}).sort({ createdAt: -1 }).toArray();
@@ -43,8 +44,8 @@ router.get('/', async (req, res) => {
     }
 });
 
-// PUT /api/contact/:id/respond — mark message as responded
-router.put('/:id/respond', async (req, res) => {
+// PUT /api/contact/:id/respond — mark message as responded (admin)
+router.put('/:id/respond', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const result = await db.collection('contact_messages').updateOne(

@@ -1,0 +1,14 @@
+{
+  "name": "aluminium-fabrication-erp",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "serverless-http": "^3.2.0"
+  },
+  "scripts": {
+    "start:frontend": "cd frontend && npm start",
+    "start:backend": "cd backend && npm start",
+    "build:frontend": "cd frontend && npm run build",
+    "install:all": "cd frontend && npm install && cd ../backend && npm install && cd .. && npm install"
+  }
+}

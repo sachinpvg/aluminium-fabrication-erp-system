@@ -1,5 +1,6 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'aluminum_fabrication_erp_secret_key_2024';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function authMiddleware(req, res, next) {
     const authHeader = req.headers['authorization'];

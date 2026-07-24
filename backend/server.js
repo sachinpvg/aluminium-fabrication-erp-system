@@ -1,19 +1,59 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const rateLimit = require('express-rate-limit');
 
 const authMiddleware = require('./authMiddleware');
 const { getDB } = require('./db');
 
 const app = express();
 
-app.use(cors());
+// ─────────────────────────────────────
+// CORS — restrict to allowed origins
+// ─────────────────────────────────────
+const allowedOrigins = (process.env.FRONTEND_URL || '')
+    .split(',')
+    .map(o => o.trim())
+    .filter(Boolean);
+
+app.use(cors({
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, curl, server-to-server)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true
+}));
+
 app.use(express.json());
 
-const port = 8081;
+const port = process.env.PORT || 8081;
 
-const JWT_SECRET = 'aluminum_fabrication_erp_secret_key_2024';
+const JWT_SECRET = process.env.JWT_SECRET;
+
+// ─────────────────────────────────────
+// RATE LIMITING
+// ─────────────────────────────────────
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    message: { error: 'Too many attempts, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const adminMutationLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 60,
+    message: { error: 'Too many requests, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 
 
 // ─────────────────────────────────────
@@ -21,7 +61,7 @@ const JWT_SECRET = 'aluminum_fabrication_erp_secret_key_2024';
 // ─────────────────────────────────────
 
 // REGISTER
-app.post('/auth/register', async (req, res) => {
+app.post('/auth/register', authLimiter, async (req, res) => {
 
     try {
 
@@ -84,7 +124,7 @@ app.post('/auth/register', async (req, res) => {
 
 
 // LOGIN
-app.post('/auth/login', async (req, res) => {
+app.post('/auth/login', authLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
         const db = await getDB();
@@ -121,7 +161,7 @@ app.post('/auth/login', async (req, res) => {
 
 
 // ADMIN REGISTER
-app.post('/auth/admin-register', async (req, res) => {
+app.post('/auth/admin-register', authLimiter, async (req, res) => {
     try {
         const { username, email, password } = req.body;
         if (!username || !email || !password) {
@@ -156,7 +196,7 @@ app.post('/auth/admin-register', async (req, res) => {
 });
 
 // ADMIN LOGIN
-app.post('/auth/admin-login', async (req, res) => {
+app.post('/auth/admin-login', authLimiter, async (req, res) => {
     try {
         const { email, password } = req.body;
         const db = await getDB();
@@ -207,35 +247,38 @@ app.get('/auth/me', authMiddleware, (req, res) => {
 
 const requirementRoutes = require('./routes/requirementRoutes');
 
-app.use('/api/requirements', requirementRoutes);
+app.use('/api/requirements', adminMutationLimiter, requirementRoutes);
 
 
 const windowRoutes = require('./routes/windowRoutes');
 
-app.use('/api/windows', windowRoutes);
+app.use('/api/windows', adminMutationLimiter, windowRoutes);
 
 
 const bookingRoutes = require('./routes/bookingRoutes');
 
-app.use('/api/bookings', bookingRoutes);
+app.use('/api/bookings', adminMutationLimiter, bookingRoutes);
 
 
 const workerRoutes = require('./routes/workerRoutes');
-app.use('/api/workers', workerRoutes);
+app.use('/api/workers', adminMutationLimiter, workerRoutes);
 
 const contactRoutes = require('./routes/contactRoutes');
-app.use('/api/contact', contactRoutes);
+app.use('/api/contact', adminMutationLimiter, contactRoutes);
 
 const analyticsRoutes = require('./routes/analyticsRoutes');
-app.use('/api/admin/analytics', analyticsRoutes);
+app.use('/api/admin/analytics', adminMutationLimiter, analyticsRoutes);
 
 
 // ─────────────────────────────────────
-// SERVER STARTeere
+// SERVER START
 // ─────────────────────────────────────
 
-app.listen(port, () => {
+// Only listen when run directly (not imported by serverless wrapper)
+if (require.main === module) {
+    app.listen(port, () => {
+        console.log(`🚀 Server running on http://localhost:${port}`);
+    });
+}
 
-    console.log(`🚀 Server running on http://localhost:${port}`);
-
-});
+module.exports = app;

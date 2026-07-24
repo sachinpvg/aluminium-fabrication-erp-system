@@ -1,6 +1,7 @@
 const express = require('express');
 const { ObjectId } = require('mongodb');
 const { getDB } = require('../db');
+const authMiddleware = require('../authMiddleware');
 
 const router = express.Router();
 
@@ -92,7 +93,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/workers/applications/:id/approve — approve a pending application
-router.put('/applications/:id/approve', async (req, res) => {
+router.put('/applications/:id/approve', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const appId = req.params.id;
@@ -131,7 +132,7 @@ router.put('/applications/:id/approve', async (req, res) => {
 });
 
 // DELETE /api/workers/applications/:id — reject/delete application
-router.delete('/applications/:id', async (req, res) => {
+router.delete('/applications/:id', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const result = await db.collection('worker_applications').deleteOne({ _id: new ObjectId(req.params.id) });
@@ -144,7 +145,7 @@ router.delete('/applications/:id', async (req, res) => {
 });
 
 // PUT /api/workers/:id/status — toggle Available / Busy
-router.put('/:id/status', async (req, res) => {
+router.put('/:id/status', authMiddleware, async (req, res) => {
     try {
         const { status } = req.body;
         if (!['Available', 'Busy'].includes(status)) {
@@ -164,7 +165,7 @@ router.put('/:id/status', async (req, res) => {
 });
 
 // DELETE /api/workers/:id — delete a worker
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const result = await db.collection('workers').deleteOne({ _id: new ObjectId(req.params.id) });

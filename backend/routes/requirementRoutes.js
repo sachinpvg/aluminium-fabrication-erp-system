@@ -6,7 +6,7 @@ const authMiddleware = require('../authMiddleware');
 const router = express.Router();
 
 // GET /api/requirements — get all (admin)
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   try {
     const db = await getDB();
     const requirements = await db.collection('requirements').find({}).sort({ createdAt: -1 }).toArray();
@@ -52,7 +52,7 @@ router.post('/', authMiddleware, async (req, res) => {
 });
 
 // PATCH /api/requirements/:id/approve — admin approves + attaches quotation
-router.patch('/:id/approve', async (req, res) => {
+router.patch('/:id/approve', authMiddleware, async (req, res) => {
   try {
     const { quotation } = req.body;
     if (!quotation || !quotation.totalAmount) {
@@ -78,7 +78,7 @@ router.patch('/:id/approve', async (req, res) => {
 });
 
 // PATCH /api/requirements/:id/reject — admin rejects with optional reason
-router.patch('/:id/reject', async (req, res) => {
+router.patch('/:id/reject', authMiddleware, async (req, res) => {
   try {
     const { rejectionReason } = req.body;
     const db = await getDB();

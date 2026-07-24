@@ -52,7 +52,7 @@ router.post('/', authMiddleware, async (req, res) => {
 });
 
 // GET /api/bookings — get all bookings (admin)
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const bookings = await db.collection('bookings').find({}).sort({ createdAt: -1 }).toArray();
@@ -79,7 +79,7 @@ router.get('/my', authMiddleware, async (req, res) => {
 });
 
 // PUT /api/bookings/:id/approve — admin approves: status = "booked"
-router.put('/:id/approve', async (req, res) => {
+router.put('/:id/approve', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const result = await db.collection('bookings').updateOne(
@@ -95,7 +95,7 @@ router.put('/:id/approve', async (req, res) => {
 });
 
 // PUT /api/bookings/:id/reject — admin rejects: status = "rejected"
-router.put('/:id/reject', async (req, res) => {
+router.put('/:id/reject', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const result = await db.collection('bookings').updateOne(
@@ -127,7 +127,7 @@ router.put('/:id/payment', authMiddleware, async (req, res) => {
 });
 
 // PUT /api/bookings/:id/assign-worker — admin assigns a worker to a paid booking
-router.put('/:id/assign-worker', async (req, res) => {
+router.put('/:id/assign-worker', authMiddleware, async (req, res) => {
     try {
         const { worker_id, worker_name, worker_phone, worker_image, worker_experience, years_of_experience } = req.body;
         if (!worker_id || !worker_name) {
@@ -159,7 +159,7 @@ router.put('/:id/assign-worker', async (req, res) => {
 });
 
 // PUT /api/bookings/:id/update-price — admin only: update pricing breakdown
-router.put('/:id/update-price', async (req, res) => {
+router.put('/:id/update-price', authMiddleware, async (req, res) => {
     try {
         const { pricePerSqft, labourCharge, rubberCharge, serviceCharge } = req.body;
         

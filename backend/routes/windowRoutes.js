@@ -1,6 +1,7 @@
 const express = require('express');
 const { ObjectId } = require('mongodb');
 const { getDB } = require('../db');
+const authMiddleware = require('../authMiddleware');
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.get('/', async (req, res) => {
 });
 
 // POST /api/windows — add a new window (admin)
-router.post('/', async (req, res) => {
+router.post('/', authMiddleware, async (req, res) => {
     try {
         const { name, description, image, windowType, price_per_sqft, labour_charge, rubber_charge, service_charge } = req.body;
         if (!name || !price_per_sqft) {
@@ -44,7 +45,7 @@ router.post('/', async (req, res) => {
 });
 
 // PUT /api/windows/:id — update a window (admin)
-router.put('/:id', async (req, res) => {
+router.put('/:id', authMiddleware, async (req, res) => {
     try {
         const { name, description, image, windowType, price_per_sqft, labour_charge, rubber_charge, service_charge } = req.body;
         const db = await getDB();
@@ -73,7 +74,7 @@ router.put('/:id', async (req, res) => {
 });
 
 // DELETE /api/windows/:id — delete a window (admin)
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         const result = await db.collection('windows').deleteOne({ _id: new ObjectId(req.params.id) });

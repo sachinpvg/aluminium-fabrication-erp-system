@@ -1,10 +1,11 @@
 const express = require('express');
 const { getDB } = require('../db');
+const authMiddleware = require('../authMiddleware');
 
 const router = express.Router();
 
-// GET /api/admin/analytics
-router.get('/', async (req, res) => {
+// GET /api/admin/analytics (admin)
+router.get('/', authMiddleware, async (req, res) => {
     try {
         const db = await getDB();
         
