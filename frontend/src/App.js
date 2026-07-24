@@ -235,7 +235,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
       <div className='row mt-5 pt-5'>
         <div className='col-12 col-sm-2 col-lg-2 mb-4 mb-lg-0 col-xl-2'></div>
         <div className='col-12 col-sm-4 col-lg-4 mb-4 mb-lg-0 col-xl-4 mt-5 pt-3'>
-          <h1 className='text-center'>Happy Customers</h1>
+          {/* <h1 className='text-center'>Happy Customers</h1> */}
           <img src='https://img.freepik.com/free-vector/customer-giving-quality-feedback_74855-5482.jpg' className='img-fluid asdimg'></img>
 
            <div  class="review1 mt-5 ms-5">
