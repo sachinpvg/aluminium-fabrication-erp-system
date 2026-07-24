@@ -13,16 +13,22 @@ const app = express();
 // ─────────────────────────────────────
 // CORS — restrict to allowed origins
 // ─────────────────────────────────────
-const allowedOrigins = (process.env.FRONTEND_URL || '')
+const defaultOrigins = [
+    'https://aluminium-fabrication-erp-system-ruddy.vercel.app',
+    'http://localhost:3000'
+];
+
+const envOrigins = (process.env.FRONTEND_URL || '')
     .split(',')
     .map(o => o.trim())
     .filter(Boolean);
 
+const allowedOrigins = envOrigins.length > 0 ? envOrigins : defaultOrigins;
+
 app.use(cors({
     origin: function (origin, callback) {
-        // Allow requests with no origin (mobile apps, curl, server-to-server)
         if (!origin) return callback(null, true);
-        if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        if (allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
         return callback(new Error('Not allowed by CORS'));
