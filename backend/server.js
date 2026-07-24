@@ -13,17 +13,14 @@ const app = express();
 // ─────────────────────────────────────
 // CORS — restrict to allowed origins
 // ─────────────────────────────────────
-const defaultOrigins = [
+const allowedOrigins = [
     'https://aluminium-fabrication-erp-system-ruddy.vercel.app',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    ...(process.env.FRONTEND_URL || '')
+        .split(',')
+        .map(o => o.trim())
+        .filter(Boolean)
 ];
-
-const envOrigins = (process.env.FRONTEND_URL || '')
-    .split(',')
-    .map(o => o.trim())
-    .filter(Boolean);
-
-const allowedOrigins = envOrigins.length > 0 ? envOrigins : defaultOrigins;
 
 app.use(cors({
     origin: function (origin, callback) {
