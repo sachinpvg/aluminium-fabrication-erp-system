@@ -162,7 +162,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
             <h3 className='text-center'>Combination</h3>
           <p className='text-center pt-2'>Combination windows designed with integrated fixed and operable panels within one system, offering enhanced airflow control, visual balance, and efficient space utilization.</p>
           </div>
-        </div>
+        </div>          
         </div>
       </div>
       </div>
@@ -247,7 +247,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
       <div class="pb-3"><p class="text-dark ps-3">- “Preparing aluminium window quotations used to take hours, but now ERP automation helps us create accurate quotes quickly and track project progress easily.”</p></div>
       </div>
 
-      <img src='https://thumbs.dreamstime.com/b/vector-flat-man-avatar-no-face-brown-hair-beard-vector-flat-man-avatar-no-face-hairstyle-beard-300175364.jpg' className='img-fluid asdimg mt-5 ms-3'></img>
+      <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkrNWTa_gltaLJMGXOYi4IvdGqsHurCJIJeJnwTO1zetFAiRjCCaSfI7w&s=10' className='img-fluid asdimg mt-5 ms-3'></img>
         </div>
         <div className='col-12 col-sm-4 col-lg-4 mb-4 mb-lg-0 col-xl-4 mt-5 pt-5'>
           <div  class="review1 ms-5">
@@ -273,7 +273,7 @@ Our company focuses on precision measurement, quality materials, and advanced fa
         </div>
         <div className='col-12 col-sm-2 col-lg-2 mb-4 mb-lg-0 col-xl-2'></div>
       </div>
-    </div>
+    </div>                    
 
     
     <div className='container-fluid mt-5'>

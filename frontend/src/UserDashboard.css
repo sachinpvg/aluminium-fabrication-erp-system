@@ -21,6 +21,10 @@ section {
     /* Offset for sticky navbar */
 }
 
+.simple-page-wrapper {
+    overflow-x: hidden;
+}
+
 /* ─── Status Badges ─────────────────────────────────────── */
 .ud-status-badge {
     padding: 6px 14px;
@@ -193,6 +197,48 @@ section {
 }
 
 /* ─── Print Styles ───────────────────────────────────────── */
+@media (max-width: 767px) {
+    .greeting-text {
+        font-size: clamp(1.4rem, 3vw, 2rem);
+    }
+
+    .ud-quot-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .ud-quot-total {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .ud-quot-amount {
+        font-size: 1.2rem;
+    }
+
+    .ud-modal-header h5 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .ud-modal-header,
+    .ud-modal-body,
+    .ud-modal-footer {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+    .ud-modal-footer {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+
+    .ud-modal-footer button {
+        width: 100%;
+    }
+}
+
 @media print {
 
     /* Hide everything except the modal content */

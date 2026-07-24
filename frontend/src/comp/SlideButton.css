@@ -6,6 +6,8 @@
   background: transparent;
   cursor: pointer;
   overflow: hidden;
+  max-width: 100%;
+  min-height: 48px;
 }
 
 .slide-btn span {
@@ -31,4 +33,11 @@
 
 .slide-btn:hover span {
   color: white;
+}
+
+@media (max-width: 480px) {
+  .slide-btn {
+    width: 100%;
+    padding: 12px 20px;
+  }
 }

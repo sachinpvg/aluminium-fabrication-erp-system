@@ -245,19 +245,25 @@
 }
 
 /* Mobile Responsiveness */
-@media (max-width: 576px) {
+@media (max-width: 991px) {
+    .bm-body {
+        padding: 20px 22px;
+    }
+
+    .bm-header {
+        padding: 20px 22px 14px;
+    }
+}
+
+@media (max-width: 767px) {
+    .bm-overlay {
+        padding: 10px;
+    }
+
     .bm-modal {
         max-width: 100%;
         border-radius: 16px;
         max-height: 95vh;
-    }
-
-    .bm-body {
-        padding: 18px 20px;
-    }
-
-    .bm-header {
-        padding: 18px 20px 12px;
     }
 
     .bm-footer {
@@ -297,5 +303,27 @@
 
     .bm-charge-item {
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bm-header {
+        padding: 16px 16px 12px;
+    }
+
+    .bm-body {
+        padding: 16px;
+    }
+
+    .bm-title {
+        font-size: 1.15rem;
+    }
+
+    .bm-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .bm-footer button {
+        min-width: 100%;
     }
 }

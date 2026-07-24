@@ -63,9 +63,44 @@
 }
 
 
+@media(max-width:991px){
+  .about-hero{
+    padding:46px 18px;
+  }
+
+  .mission-box, .vision-box{
+    padding:22px;
+  }
+
+  .feature-card{
+    padding:20px;
+  }
+}
+
 @media(max-width:768px){
+  .about-hero{
+    padding:36px 14px;
+  }
+
   .mission-box{
     border-right:none;
     border-bottom:1px solid #334155;
+  }
+
+  .cta-section{
+    padding:40px 14px;
+  }
+}
+
+@media(max-width:480px){
+  .about-hero h1,
+  .about-hero h2,
+  .about-hero h3 {
+    font-size:1.35rem;
+  }
+
+  .hero-img,
+  .about-img {
+    width:100%;
   }
 }

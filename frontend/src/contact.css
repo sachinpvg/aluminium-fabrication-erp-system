@@ -84,3 +84,39 @@
   70% { box-shadow: 0 0 0 15px rgba(255,193,7,0); }
   100% { box-shadow: 0 0 0 0 rgba(255,193,7,0); }
 }
+
+@media (max-width: 991px) {
+  .contact-card,
+  .contact-service-card,
+  .contact-form-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .contact-hero {
+    padding: 56px 16px;
+  }
+
+  .contact-cta {
+    padding: 28px 16px;
+    margin-top: 32px;
+  }
+
+  .contact-form-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-card,
+  .contact-service-card,
+  .contact-form-card {
+    padding: 16px;
+  }
+
+  .contact-hero-btn,
+  .contact-cta-btn {
+    width: 100%;
+  }
+}

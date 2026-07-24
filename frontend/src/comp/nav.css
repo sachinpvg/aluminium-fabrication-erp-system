@@ -3,3 +3,46 @@
     width: 90px;
     height: 90px
 }
+
+.navbar {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.navbar-brand {
+    white-space: normal;
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+}
+
+.navbar-toggler {
+    border: 0;
+    padding: 0.35rem 0.5rem;
+}
+
+@media (max-width: 991px) {
+    .navbar-nav {
+        padding-top: 0.75rem;
+    }
+
+    .navbar-nav .nav-item,
+    .navbar-nav .nav-item .btn {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+
+    .navbar-nav .nav-item .btn {
+        display: block;
+        text-align: center;
+    }
+
+    .navbar-nav .dropdown-menu {
+        margin-top: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-brand {
+        max-width: 70%;
+        line-height: 1.2;
+    }
+}

@@ -30,3 +30,16 @@
     margin-top: 10px;
   }
 }
+
+@media (max-width: 480px) {
+  .dep2 {
+    height: 300px;
+    background-position: center;
+  }
+
+  .add-btn {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+}

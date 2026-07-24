@@ -51,6 +51,23 @@
   animation: slideUp 0.2s ease-out;
 }
 
+@media (max-width: 767px) {
+  .table-responsive {
+    overflow-x: hidden;
+  }
+
+  .admin-table {
+    font-size: 0.92rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 8px;
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
 .modal-box-sm {
   max-width: 460px;
 }
